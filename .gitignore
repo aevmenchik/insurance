@@ -1,0 +1,4 @@
+.modgit
+.idea/*
+var/cache/*
+var/session/*
