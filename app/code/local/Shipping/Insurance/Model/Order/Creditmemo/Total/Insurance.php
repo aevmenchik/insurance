@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Order invoice shipping total calculation model
  *
@@ -9,7 +8,6 @@
  */
 class Shipping_insurance_Model_Order_Creditmemo_Total_Insurance extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
-
     /**
      * Collect credit memo subtotal
      *
@@ -21,20 +19,17 @@ class Shipping_insurance_Model_Order_Creditmemo_Total_Insurance extends Mage_Sal
         $creditmemo->setShippingInsurance(Shipping_Insurance_Model_Insurance::DISABLED);
         $creditmemo->setShippingInsuranceAmount(0);
         $creditmemo->setBaseShippinginsuranceAmount(0);
-        $orderShippingInsurance        = $creditmemo->getOrder()->getShippingInsurance();
-        $orderShippingInsuranceAmount        = $creditmemo->getOrder()->getShippingInsuranceAmount();
-        $baseOrderShippingInsuranceAmount    = $creditmemo->getOrder()->getBaseShippingInsuranceAmount();
+        $orderShippingInsurance = $creditmemo->getOrder()->getShippingInsurance();
+        $orderShippingInsuranceAmount = $creditmemo->getOrder()->getShippingInsuranceAmount();
+        $baseOrderShippingInsuranceAmount = $creditmemo->getOrder()->getBaseShippingInsuranceAmount();
 
-        if ($orderShippingInsurance) {
+        if ($orderShippingInsurance == Shipping_Insurance_Model_Insurance::ACTIVE) {
             $creditmemo->setShippingInsurance($orderShippingInsurance);
             $creditmemo->setShippingInsuranceAmount($orderShippingInsuranceAmount);
             $creditmemo->setBaseShippingInsuranceAmount($baseOrderShippingInsuranceAmount);
-
             $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $orderShippingInsuranceAmount);
             $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseOrderShippingInsuranceAmount);
         }
-
         return $this;
     }
-
 }

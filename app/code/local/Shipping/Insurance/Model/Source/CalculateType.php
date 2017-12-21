@@ -8,7 +8,6 @@
  */
 class Shipping_Insurance_Model_Source_CalculateType
 {
-
     /**
      * Return options
      *

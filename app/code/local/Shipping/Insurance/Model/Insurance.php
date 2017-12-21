@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Shipping_Insurance_Model_Insurance
  *
@@ -7,11 +6,10 @@
  * @package    Shipping_Insurance
  * @author     ae
  */
-
 class Shipping_Insurance_Model_Insurance
 {
     const ACTIVE = 1;
-    const DISABLED = 0;
+    const DISABLED = 2;
 
     /**
      * Part of carrier xml config path
@@ -34,8 +32,6 @@ class Shipping_Insurance_Model_Insurance
      */
     protected $_insuranceFeeConfigField = 'insurance_fee';
 
-
-
     /**
      * Return calculated insurance rate for requested shipping method
      *
@@ -47,10 +43,8 @@ class Shipping_Insurance_Model_Insurance
     {
         $shipping_code = $this->_getShippingCode($shipping_method);
         $insurance = $this->_getInsuranceByCarrier($shipping_code);
-
         return !empty($insurance[$this->_insuranceFeeConfigField]);
     }
-
 
     /**
      * Return calculated insurance rate for requested shipping method
@@ -62,7 +56,6 @@ class Shipping_Insurance_Model_Insurance
     protected function _getInsuranceByCarrier($carrier_code)
     {
         $insurance = array();
-
         $carriers = $this->getAvailableCarriersWithInsurance();
 
         if (!empty($carriers[$carrier_code])) {
@@ -74,10 +67,8 @@ class Shipping_Insurance_Model_Insurance
                 ))
             );
         }
-
         return $insurance;
     }
-
 
     /**
      * Return calculated insurance rate for requested shipping method
@@ -110,7 +101,6 @@ class Shipping_Insurance_Model_Insurance
                 }
             }
         }
-
         return $insurance_rate;
     }
 
@@ -124,8 +114,6 @@ class Shipping_Insurance_Model_Insurance
         return array_shift(explode('_', $shipping_method));
     }
 
-
-
     /**
      * Return all active carriers with active insurance value
      *
@@ -134,8 +122,8 @@ class Shipping_Insurance_Model_Insurance
     public function getAvailableCarriersWithInsurance()
     {
         $carriers = Mage::getStoreConfig('carriers');
-
         $available_carriers_with_insurance = array();
+
         if (!empty($carriers)) {
             foreach ($carriers as $carrier_code => $carrier) {
                 if (!empty($carrier[$this->_availabilityConfigField]) && !empty($carrier[$this->_insuranceFeeConfigField])) {
@@ -143,9 +131,6 @@ class Shipping_Insurance_Model_Insurance
                 }
             }
         }
-
         return $available_carriers_with_insurance;
     }
-
-
 }

@@ -7,10 +7,8 @@
  * @package    Shipping_Insurance
  * @author     ae
  */
-
 class Shipping_Insurance_Block_Adminhtml_Order_Create_Insurance extends Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method
 {
-
     /**
      * Shipping_Insurance_Block_Adminhtml_Order_Create_Insurance constructor
      */

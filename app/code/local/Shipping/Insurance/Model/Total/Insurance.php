@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Shipping_Insurance_Model_Total_Insurance
  *
@@ -9,7 +8,6 @@
  */
 class Shipping_Insurance_Model_Total_Insurance extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
-
     /**
      * Shipping_Insurance_Model_Total_Insurance constructor
      */
@@ -17,7 +15,6 @@ class Shipping_Insurance_Model_Total_Insurance extends Mage_Sales_Model_Quote_Ad
     {
         $this->setCode('shipping_insurance');
     }
-
 
     /**
      * Collect totals information about shipping insurance
@@ -31,23 +28,17 @@ class Shipping_Insurance_Model_Total_Insurance extends Mage_Sales_Model_Quote_Ad
 
         $this->_setAmount(0)
             ->_setBaseAmount(0);
-
         $address->collectShippingRates();
-
         $this->_setAmount(0)
             ->_setBaseAmount(0);
 
-        $insurance = $address->getShippingInsuranceAmount();
-        if (!empty($insurance)) {
-            $amountPrice = $address->getQuote()->getStore()->convertPrice($insurance, false);
+        if ($address->getShippingInsurance() == Shipping_Insurance_Model_Insurance::ACTIVE) {
+            $insurance = $address->getShippingInsuranceAmount();
             $this->_setAmount($insurance);
             $this->_setBaseAmount($insurance);
         }
-
-
         return $this;
     }
-
 
     /**
      * Add shipping totals information to address object
@@ -58,6 +49,7 @@ class Shipping_Insurance_Model_Total_Insurance extends Mage_Sales_Model_Quote_Ad
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getShippingInsuranceAmount();
+
         if ($amount != 0) {
             $title = Mage::helper('sales')->__('Shipping Insurance');
             $address->addTotal(array(
@@ -68,7 +60,6 @@ class Shipping_Insurance_Model_Total_Insurance extends Mage_Sales_Model_Quote_Ad
         }
         return $this;
     }
-
 
     /**
      * Get Shipping label

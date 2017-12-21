@@ -7,10 +7,8 @@
  * @package    Shipping_Insurance
  * @author     ae
  */
-
 class Shipping_Insurance_Block_Onepage extends Mage_Checkout_Block_Onepage
 {
-
     /**
      * Get 'one step checkout' step data
      *
@@ -18,18 +16,22 @@ class Shipping_Insurance_Block_Onepage extends Mage_Checkout_Block_Onepage
      */
     public function getSteps()
     {
-        $steps = array();
+        $steps = parent::getSteps();
 
-        if (!$this->isCustomerLoggedIn()) {
-            $steps['login'] = $this->getCheckout()->getStepData('login');
+        $insurance_step_code = 'shipping_insurance';
+        $after_step_code = 'shipping_method';
+
+        if (isset($steps[$after_step_code])) {
+            $new_steps = array();
+
+            foreach ($steps as $step_code => $step_data) {
+                $new_steps[$step_code] = $step_data;
+                if ($step_code == $after_step_code) {
+                    $new_steps[$insurance_step_code] = $this->getCheckout()->getStepData($insurance_step_code);
+                }
+            }
+            $steps = $new_steps;
         }
-
-        $stepCodes = array('billing', 'shipping', 'shipping_method', 'shipping_insurance', 'payment', 'review');
-
-        foreach ($stepCodes as $step) {
-            $steps[$step] = $this->getCheckout()->getStepData($step);
-        }
-
         return $steps;
     }
 }

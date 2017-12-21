@@ -1,7 +1,5 @@
 <?php
-
 require_once 'Mage/Checkout/controllers/OnepageController.php';
-
 /**
  * Class Shipping_Insurance_OnepageController
  *
@@ -11,7 +9,6 @@ require_once 'Mage/Checkout/controllers/OnepageController.php';
  */
 class Shipping_Insurance_OnepageController extends Mage_Checkout_OnepageController
 {
-
     /**
      * Shipping insurance save action
      */
@@ -43,7 +40,6 @@ class Shipping_Insurance_OnepageController extends Mage_Checkout_OnepageControll
         }
     }
 
-
     /**
      * Get shipping insurance step html
      *
@@ -60,7 +56,6 @@ class Shipping_Insurance_OnepageController extends Mage_Checkout_OnepageControll
         return $output;
     }
 
-
     /**
      * Shipping insurance save action
      */
@@ -71,8 +66,8 @@ class Shipping_Insurance_OnepageController extends Mage_Checkout_OnepageControll
         }
         if ($this->getRequest()->isPost()) {
             $insurance = $this->getRequest()->getPost('shipping_insurance');
-
             $result = array();
+
             if ($insurance) {
                 Mage::getSingleton('checkout/cart')->getQuote()->getShippingAddress()
                     ->setShippingInsurance(Shipping_Insurance_Model_Insurance::ACTIVE)
@@ -94,7 +89,6 @@ class Shipping_Insurance_OnepageController extends Mage_Checkout_OnepageControll
                     'html' => $this->_getPaymentMethodsHtml()
                 );
             }
-
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }

@@ -7,9 +7,6 @@
  * @package    Shipping_Insurance
  * @author     ae
  */
-
-
-
 class Shipping_Insurance_Block_Onepage_Insurance extends Mage_Checkout_Block_Onepage_Abstract
 {
     protected $_rates;
@@ -20,13 +17,11 @@ class Shipping_Insurance_Block_Onepage_Insurance extends Mage_Checkout_Block_One
     protected function _construct()
     {
         $this->getCheckout()->setStepData('shipping_insurance', array(
-            'label'     => Mage::helper('checkout')->__('Shipping Insurance'),
-            'is_show'   => true
+            'label' => Mage::helper('checkout')->__('Shipping Insurance'),
+            'is_show' => true
         ));
-
         parent::_construct();
     }
-
 
     /**
      * Declare template for payment method form block
@@ -45,7 +40,6 @@ class Shipping_Insurance_Block_Onepage_Insurance extends Mage_Checkout_Block_One
         return $this;
     }
 
-
     /**
      * Define if shipping insurance is added
      *
@@ -53,13 +47,8 @@ class Shipping_Insurance_Block_Onepage_Insurance extends Mage_Checkout_Block_One
      */
     public function isShippingInsuranceActive()
     {
-        if (Mage::getSingleton('checkout/cart')->getQuote()->getShippingAddress()->getShippingInsurance()) {
-            return true;
-        } else {
-            return false;
-        }
+        return Mage::getSingleton('checkout/cart')->getQuote()->getShippingAddress()->getShippingInsurance() == Shipping_Insurance_Model_Insurance::ACTIVE;
     }
-
 
     /**
      * Return shipping insurance rate for current shipping method and subtotal of order
@@ -70,14 +59,9 @@ class Shipping_Insurance_Block_Onepage_Insurance extends Mage_Checkout_Block_One
     {
         $subtotal = Mage::getSingleton('checkout/cart')->getQuote()->getTotals()['subtotal']->getValue();
         $shipping_method = $this->getRequest()->getPost('shipping_method');
-
-        /** @var $request Shipping_Insurance_Model_Insurance */
-        $insurance = Mage::getModel('shipping_insurance/insurance');
-        $insurance_rate = $insurance->getAvailableInsuranceRate($shipping_method, $subtotal);
-
+        $insurance_rate = Mage::getModel('shipping_insurance/insurance')->getAvailableInsuranceRate($shipping_method, $subtotal);
         return $insurance_rate;
     }
-
 
     /**
      * Get Carrier Name
@@ -87,10 +71,10 @@ class Shipping_Insurance_Block_Onepage_Insurance extends Mage_Checkout_Block_One
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        $name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title');
+        if ($name) {
             return $name;
         }
         return $carrierCode;
     }
-
 }

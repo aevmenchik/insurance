@@ -30,6 +30,12 @@
             </adminhtml>
         </models>
 
+        <helpers>
+            <shipping_insurance>
+                <class>Shipping_Insurance_Helper</class>
+            </shipping_insurance>
+        </helpers>
+
         <blocks>
             <checkout>
                 <rewrite>

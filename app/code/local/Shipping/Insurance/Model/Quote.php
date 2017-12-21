@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Shipping_Insurance_Model_Quote
  *
@@ -7,11 +6,9 @@
  * @package    Shipping_Insurance
  * @author     ae
  */
-
 class Shipping_Insurance_Model_Quote extends Mage_Sales_Model_Quote
 {
     const TYPE_SHIPPING_INSURANCE = 'shipping_insurance';
-
 
     /**
      * retrieve quote shipping address
@@ -22,5 +19,4 @@ class Shipping_Insurance_Model_Quote extends Mage_Sales_Model_Quote
     {
         return $this->_getAddressByType(Shipping_Insurance_Model_Quote::TYPE_SHIPPING_INSURANCE);
     }
-
 }

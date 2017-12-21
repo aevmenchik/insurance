@@ -11,7 +11,6 @@ class Shipping_Insurance_Block_Adminhtml_Order_Create_Insurance_Form extends Mag
 {
     protected $_rate;
 
-
     /**
      * Shipping_Insurance_Block_Adminhtml_Order_Create_Insurance_Form constructor
      */
@@ -42,13 +41,10 @@ class Shipping_Insurance_Block_Adminhtml_Order_Create_Insurance_Form extends Mag
 
             if (!empty($insurance_rate)) {
                 $this->_rate = $insurance_rate;
-                $this->_rate['checked'] = $insurance_active;
+                $this->_rate['checked'] = $insurance_active == Shipping_Insurance_Model_Insurance::ACTIVE;
                 $this->_rate['active_value'] = $insurance_active ? $insurance_rate['format_value'] : $this->getQuote()->getStore()->convertPrice(0, true);
             }
         }
-
         return $this->_rate;
     }
-
-
 }
